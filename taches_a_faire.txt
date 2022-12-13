@@ -1,0 +1,21 @@
+- vérifier les paramètres :
+	- fichier présent dans les paramètres √
+	- exclusivité des paramètres de lieu et de type de tri √
+	- existence d'un paramètre sur le type de données √
+- récupérer les paramètres √
+- filtrer correctement le fichier par rapport aux paramètres
+- vérifier que le fichier executable issu du C existe, sinon le compiler
+- afficher les graphiques
+- faire la documentation du script shell --help
+- mettre des commentaires
+- faire le makefile
+- faire les autres fichiers à rendre nécessaire
+
+
+◦ La liste des options de limitation géographique est la suivante :
+▪ option -F : (F)rance : France métropolitaine + Corse. -> 40N-55N et 10E-10W
+▪ option -G : (G)uyane française. -> 6N-2N et 51W-55W
+▪ option -S : (S)aint-Pierre et Miquelon : ile située à l’Est du Canada -> 47°10'N-46°45'N et 56°30W-56°W
+▪ option -A : (A)ntilles. -> 19N-11N et 64W-60W
+▪ option -O : (O)céan indien. -> 0S-50S et 30E-80E
+▪ option -Q : antarcti(Q)ue. -> 60S-90S et tout le E et W
