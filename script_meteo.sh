@@ -15,6 +15,7 @@ else
 	erreur=0
 	types=""
 	for arg in $*; do
+		echo $arg
 		if [ $fichier_present -eq 1 ]; then
 			nom_fichier=$arg
 			if [ -f $arg ]; then
@@ -22,9 +23,9 @@ else
 			fi
 	 	elif [ $arg = "-f" ]; then
 	 		fichier_present=1
-	 	elif [ $arg = "-t?" ] || [ $arg = "-p?" ] || [ $arg = "-w" ] || [ $arg = "-h" ] || [ $arg = "-m" ]; then
+	 	elif [ $arg == "-t2" ] || [ $arg == -p? ] || [ $arg = "-w" ] || [ $arg = "-h" ] || [ $arg = "-m" ]; then
 	 		type_present=$type_present+1
-	 		types=$types+$arg+" "
+	 		types=$types$arg" "
 	 	elif [ $arg = "-F" ] || [ $arg = "-G" ] || [ $arg = "-S" ] || [ $arg = "-A" ] || [ $arg = "-O" ] || [ $arg = "-Q" ]; then
 			lieu=$arg
 			lieu_present=$lieu_present+1
@@ -46,10 +47,11 @@ else
 			
 	 	
 	done
+	echo $types
 	if [ $fichier_present -eq 0 ]; then
 		erreur=1
 		echo "Fichier non renseigne"
-	elif [ &fichier_present -eq 1 ]; then
+	elif [ $fichier_present -eq 1 ]; then
 		erreur=1
 		echo "$nom_fichier n'est pas un fichier"
 	fi
@@ -68,12 +70,35 @@ else
 	if [ $erreur -eq 0 ]; then
 		#parametres corrects
 		for t in $types; do
-			colonne_type=0
-			if [ $arg = "-t?" ]; then
-			elif [ $arg = "-p?" ]; then
-			elif [ $arg = "-w" ]; then 
-			elif [ $arg = "-h" ]; then 
-			elif [ $arg = "-m" ]
+			echo $t
+			num_colonne="1"
+			croissant=1
+			if [ $t = "-t1" ]; then
+				num_colonne="1,11,12,13"
+			elif [ $t = "-t2" ]; then
+				num_colonne="2,11,12,13"
+			elif [ $t = "-t3" ]; then
+				num_colonne="1,2,11,12,13"
+			elif [ $t = "-p1" ]; then
+				num_colonne="1,7,8"
+			elif [ $t = "-p2" ]; then
+				num_colonne="2,7,8"
+			elif [ $t = "-p3" ]; then
+				num_colonne="1,2,7,8"
+			elif [ $t = "-w" ]; then
+				num_colonne="1,4,5"
+			elif [ $t = "-h" ]; then
+				num_colonne="14"
+				croissant=0
+			elif [ $t = "-m" ]; then
+				num_colonne="6"
+				croissant=0
+			fi
+			echo $num_colonne
+			echo $(cut -d ';' -f$num_colonne $nom_fichier) >> resultat.csv
+		done
+	fi
+			
 fi
 
 
