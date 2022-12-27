@@ -24,7 +24,7 @@ else
 			fi
 	 	elif [ $arg == "-f" ]; then
 	 		fichier_present=1
-	 	elif [ $arg == "-t1" ] || [ $arg == "-t2" ] || [ $arg == "-t3" ] || [ $arg == "-p1" ] || [ $arg == "-p2" ] || [ $arg == "-p3" ] || [ $arg == "-w" ] || [ $arg == "-h" ] || [ $arg == "-m" ]; then
+	 	elif [[ $arg == "-t"? ]] || [[ $arg == "-p"? ]] || [ $arg == "-w" ] || [ $arg == "-h" ] || [ $arg == "-m" ]; then	
 	 		type_present=$type_present+1
 	 		types=$types$arg" "
 	 	elif [ $arg == "-F" ] || [ $arg == "-G" ] || [ $arg == "-S" ] || [ $arg == "-A" ] || [ $arg == "-O" ] || [ $arg == "-Q" ]; then
@@ -52,8 +52,6 @@ else
 			
 	 	
 	done
-	echo $date_min
-	echo $date_max
 	if (( $fichier_present == 0 )); then
 		erreur=1
 		echo "Fichier non renseigne"
@@ -81,13 +79,14 @@ else
 		erreur=1
 		echo "Argument -d utilisé mais qu'une seule date renseignée"
 	fi
+	echo "Vérification des paramètres terminée"
 	if (( $erreur == 0 )); then
 		#if [ $(ls | grep -x $nom_executable_c | wc -c) = 0 ]; then
 		#	echo $(make)
 		#fi
 		#parametres corrects
 		if (( $lieu_present == 1 )) && (( $date_present == 3 )); then
-			echo $(echo "" > data_filtre1.csv)
+			echo "" > data_filtre1.csv
 			#echo $(head -n 1 meteo_filtered_data_v1.csv >> data_filtre1.csv)
 			contenu_fichier=`tail -n +2 $nom_fichier`
 			for ligne in $contenu_fichier; do
@@ -97,69 +96,68 @@ else
 				date=$(echo ligne | cut -d ';' -f2 | cut -d 'T' -f1)
 				if [ $lieu = "-F" ] && (( $(echo "$coord1 >= 40" |bc -l) )) && (( $(echo "$coord1 <= 55" |bc -l) )) && (( $(echo "$coord2 >= -10" |bc -l) )) && (( $(echo "$coord2 <= 10" |bc -l) )); then
 					if [ $(date -d $date +"%Y%m%d") -ge $(date -d $date_min +"%Y%m%d") ] && [ $(date -d $date +"%Y%m%d") -le $(date -d $date_max +"%Y%m%d") ]; then
-						echo $(echo $ligne >> data_filtre1.csv)
+						echo $ligne >> data_filtre1.csv
 					fi
 				elif [ $lieu = "-G" ] && (( $(echo "$coord1 >= 2" |bc -l) )) && (( $(echo "$coord1 <= 6" |bc -l) )) && (( $(echo "$coord2 >= -55" |bc -l) )) && (( $(echo "$coord2 <= -51" |bc -l) )); then
 					if [ $(date -d $date +"%Y%m%d") -ge $(date -d $date_min +"%Y%m%d") ] && [ $(date -d $date +"%Y%m%d") -le $(date -d $date_max +"%Y%m%d") ]; then
-						echo $(echo $ligne >> data_filtre1.csv)
+						echo $ligne >> data_filtre1.csv
 					fi
 				elif [ $lieu = "-S" ] && (( $(echo "$coord1 >= 46" |bc -l) )) && (( $(echo "$coord1 <= 48" |bc -l) )) && (( $(echo "$coord2 >= -57" |bc -l) )) && (( $(echo "$coord2 <= -56" |bc -l) )); then
 					if [ $(date -d $date +"%Y%m%d") -ge $(date -d $date_min +"%Y%m%d") ] && [ $(date -d $date +"%Y%m%d") -le $(date -d $date_max +"%Y%m%d") ]; then
-						echo $(echo $ligne >> data_filtre1.csv)
+						echo $ligne >> data_filtre1.csv
 					fi
 				elif [ $lieu = "-A" ] && (( $(echo "$coord1 >= 11" |bc -l) )) && (( $(echo "$coord1 <= 19" |bc -l) )) && (( $(echo "$coord2 >= -64" |bc -l) )) && (( $(echo "$coord2 <= -60" |bc -l) )); then
 					if [ $(date -d $date +"%Y%m%d") -ge $(date -d $date_min +"%Y%m%d") ] && [ $(date -d $date +"%Y%m%d") -le $(date -d $date_max +"%Y%m%d") ]; then
-						echo $(echo $ligne >> data_filtre1.csv)
+						echo $ligne >> data_filtre1.csv
 					fi
 				elif [ $lieu = "-O" ] && (( $(echo "$coord1 >= -50" |bc -l) )) && (( $(echo "$coord1 <= 0" |bc -l) )) && (( $(echo "$coord2 >= 30" |bc -l) )) && (( $(echo "$coord2 <= 80" |bc -l) )); then
 					if [ $(date -d $date +"%Y%m%d") -ge $(date -d $date_min +"%Y%m%d") ] && [ $(date -d $date +"%Y%m%d") -le $(date -d $date_max +"%Y%m%d") ]; then
-						echo $(echo $ligne >> data_filtre1.csv)
+						echo $ligne >> data_filtre1.csv
 					fi
 				elif [ $lieu = "-Q" ] && (( $(echo "$coord1 >= -90" |bc -l) )) && (( $(echo "$coord1 <= -60" |bc -l) )); then
 					if [ $(date -d $date +"%Y%m%d") -ge $(date -d $date_min +"%Y%m%d") ] && [ $(date -d $date +"%Y%m%d") -le $(date -d $date_max +"%Y%m%d") ]; then
-						echo $(echo $ligne >> data_filtre1.csv)
+						echo $ligne >> data_filtre1.csv
 					fi
 				fi
 			done
 			nom_fichier="data_filtre1.csv"
 		elif (( $lieu_present == 1 )); then
-			echo $(echo "" > data_filtre1.csv)
+			echo "" > data_filtre1.csv
 			#echo $(head -n 1 meteo_filtered_data_v1.csv >> data_filtre1.csv)
 			contenu_fichier=`tail -n +2 $nom_fichier`
 			for ligne in $contenu_fichier; do
 				coord=$(echo $ligne | cut -d ';' -f10)
 				coord1=$(echo $coord | cut -d ',' -f1)
 				coord2=$(echo $coord | cut -d ',' -f2)
-				echo $coord
 				if [ $lieu = "-F" ] && (( $(echo "$coord1 >= 40" |bc -l) )) && (( $(echo "$coord1 <= 55" |bc -l) )) && (( $(echo "$coord2 >= -10" |bc -l) )) && (( $(echo "$coord2 <= 10" |bc -l) )); then
-					echo $(echo $ligne >> data_filtre1.csv)
+					echo $ligne >> data_filtre1.csv
 				elif [ $lieu = "-G" ] && (( $(echo "$coord1 >= 2" |bc -l) )) && (( $(echo "$coord1 <= 6" |bc -l) )) && (( $(echo "$coord2 >= -55" |bc -l) )) && (( $(echo "$coord2 <= -51" |bc -l) )); then
-					echo $(echo $ligne >> data_filtre1.csv)
+					echo $ligne >> data_filtre1.csv
 				elif [ $lieu = "-S" ] && (( $(echo "$coord1 >= 46" |bc -l) )) && (( $(echo "$coord1 <= 48" |bc -l) )) && (( $(echo "$coord2 >= -57" |bc -l) )) && (( $(echo "$coord2 <= -56" |bc -l) )); then
-					echo $(echo $ligne >> data_filtre1.csv)
+					echo $ligne >> data_filtre1.csv
 				elif [ $lieu = "-A" ] && (( $(echo "$coord1 >= 11" |bc -l) )) && (( $(echo "$coord1 <= 19" |bc -l) )) && (( $(echo "$coord2 >= -64" |bc -l) )) && (( $(echo "$coord2 <= -60" |bc -l) )); then
-					echo $(echo $ligne >> data_filtre1.csv)
+					echo $ligne >> data_filtre1.csv
 				elif [ $lieu = "-O" ] && (( $(echo "$coord1 >= -50" |bc -l) )) && (( $(echo "$coord1 <= 0" |bc -l) )) && (( $(echo "$coord2 >= 30" |bc -l) )) && (( $(echo "$coord2 <= 80" |bc -l) )); then
-					echo $(echo $ligne >> data_filtre1.csv)
+					echo $ligne >> data_filtre1.csv
 				elif [ $lieu = "-Q" ] && (( $(echo "$coord1 >= -90" |bc -l) )) && (( $(echo "$coord1 <= -60" |bc -l) )); then
-					echo $(echo $ligne >> data_filtre1.csv)
+					echo $ligne >> data_filtre1.csv
 				fi
 			done
 			nom_fichier="data_filtre1.csv"
 		elif (( $date_present == 3 )); then
-			echo $(echo "" > data_filtre1.csv)
+			echo "" > data_filtre1.csv
 			#echo $(head -n 1 meteo_filtered_data_v1.csv >> data_filtre1.csv)
 			contenu_fichier=`tail -n +2 $nom_fichier`
 			for ligne in $contenu_fichier; do
 				date=$(echo $ligne | cut -d ';' -f2 | cut -d 'T' -f1)
 				if [ $(date -d $date +"%Y%m%d") -ge $(date -d $date_min +"%Y%m%d") ] && [ $(date -d $date +"%Y%m%d") -le $(date -d $date_max +"%Y%m%d") ]; then
-					echo $(echo $ligne >> data_filtre1.csv)
+					echo $ligne >> data_filtre1.csv
 				fi
 			done
 			nom_fichier="data_filtre1.csv"
 		fi
+		echo "Vérification date et lieu terminée"
 		for t in $types; do
-			echo $t
 			num_colonne="1"
 			arguments_en_plus=$type_tri
 			colonne_de_tri=1
@@ -188,30 +186,71 @@ else
 				colonne_de_tri=6
 				arguments_en_plus=$arguments_en_plus" -r"
 			fi
-			echo $num_colonne
-			echo $(cut -d ';' -f$num_colonne $nom_fichier > resultat.csv)
+			#echo $num_colonne
+			cut -d ';' -f$num_colonne $nom_fichier | tail -n +2 > resultat.csv
+			echo "filtrage fini"
 			#retour=$(./$nom_executable_c -f resultat.csv -o fichier_trie.csv$arguments_en_plus)
-			
+			sort -k${colonne_de_tri}n resultat.csv >> fichier_trie.csv
+			echo "tri fini"
 			#appel au programme en C
+			if [ $t = "-t1" ] || [ $t = "-p1" ]; then
+				donnees_triees=`cat fichier_trie.csv`
+				#echo $donnees_triees
+				num_station=""
+				somme=0
+				nb_total=0
+				min=""
+				max=""
+				i=0
+				for ligne in $donnees_triees; do
+					if [ -z "$num_station" ]; then
+						num_station=$(echo $ligne | cut -d ';' -f1)
+					elif [ $num_station != $(echo $ligne | cut -d ';' -f1) ]; then
+						moyenne=$(echo "${somme} / ${nb_total}" | bc -l)
+						echo $num_station $moyenne $min $max >> donnees_rangees.txt
+						num_station=$(echo $ligne | cut -d ';' -f1)
+						somme=0
+						nb_total=0
+						min=""
+						max=""
+					fi
+					nb_total=$(( $nb_total + 1 ))
+					valeur=$(echo $ligne | cut -d ';' -f2)
+					if [ -z "$valeur" ]; then
+						valeur=0
+					fi
+					somme=$(echo "${somme} + ${valeur}" | bc)
+					if [ -n "$min" ]; then
+						if (( $(echo "${valeur} < ${min}" | bc -l) )); then
+							min=$valeur
+						fi
+						if (( $(echo "${valeur}> ${max}" | bc -l) )); then
+							max=$valeur
+						fi
+					else
+						min=$valeur
+						max=$valeur
+					fi
+					echo 
+					i=$(( $i + 1 ))
+					echo "i=$i"
+				done
+				moyenne=$(echo "${somme} / ${nb_total}" | bc -l)
+				echo $num_station $moyenne $min $max >> donnees_rangees.txt
+				echo "ecriture des fichiers pour gnuplot fini"
+				#echo $(plot 'donnees_rangees.txt' with yerrorlines >> gnuplot_script)
+				echo "set terminal png size 800,500 enhanced background rgb 'white'" > gnuplot_script
+				echo "set style line 1 lt 1 lw 1.5 pt 3 linecolor rgb '#2b63ff'" >> gnuplot_script
+				echo "set output 'curve.png'" >> gnuplot_script
+				echo "plot 'donnees_rangees.txt' with yerrorlines" >> gnuplot_script
+				gnuplot gnuplot_script
+				echo "Création du graphique fini"
+			fi
 		done
 	fi
 			
 fi
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+rm -f donnees_rangees.txt
+rm -f fichier_trie.csv
+rm -f resultat.csv
+rm -f gnuplot_script
