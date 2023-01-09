@@ -1,3 +1,4 @@
+
 #!/bin/bash
 if [ $# -lt 2 ]; then
 	echo "Pas assez d'arguments"
@@ -194,6 +195,7 @@ else
 			echo "tri fini"
 			#appel au programme en C
 			if [ $t = "-t1" ] || [ $t = "-p1" ]; then
+				#c'est le programme C qui doit faire ça apparemment
 				donnees_triees=`cat fichier_trie.csv`
 				#echo $donnees_triees
 				num_station=""
@@ -202,7 +204,7 @@ else
 				min=""
 				max=""
 				i=0
-				for ligne in $donnees_triees; do
+				for ligne in $donnees_triees; do 
 					if [ -z "$num_station" ]; then
 						num_station=$(echo $ligne | cut -d ';' -f1)
 					elif [ $num_station != $(echo $ligne | cut -d ';' -f1) ]; then
@@ -231,21 +233,22 @@ else
 						min=$valeur
 						max=$valeur
 					fi
-					echo 
 					i=$(( $i + 1 ))
-					echo "i=$i"
+					#echo "i=$i"
 				done
 				moyenne=$(echo "${somme} / ${nb_total}" | bc -l)
 				echo $num_station $moyenne $min $max >> donnees_rangees.txt
 				echo "ecriture des fichiers pour gnuplot fini"
 				#echo $(plot 'donnees_rangees.txt' with yerrorlines >> gnuplot_script)
-				echo "set terminal png size 800,500 enhanced background rgb 'white'" > gnuplot_script
+				echo "set terminal png size 1000,800 enhanced background rgb 'white'" > gnuplot_script
 				echo "set style line 1 lt 1 lw 1.5 pt 3 linecolor rgb '#2b63ff'" >> gnuplot_script
 				echo "set output 'curve.png'" >> gnuplot_script
-				echo "plot 'donnees_rangees.txt' with yerrorlines" >> gnuplot_script
+				#echo "plot 'donnees_rangees.txt' with yerrorlines" >> gnuplot_script
+				shade="#80E0A080"
+				echo "plot 'donnees_rangees.txt' with filledcurve fc \"cyan\" lc \"#FF000000\"" >> gnuplot_script
 				gnuplot gnuplot_script
 				echo "Création du graphique fini"
-			fi
+			else if [ $t = "-t2" ] || [ $t = "-p2" ]; then
 		done
 	fi
 			
