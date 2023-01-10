@@ -3,7 +3,7 @@
 #include <string.h>
 #include "fichier.h"
 
-Chainon* creationChainon(int a){
+Chainon* creationChainon(Case a){
     Chainon* c = malloc(sizeof(Chainon));
     if (c==NULL){
         printf("c malloc a échoué");
@@ -14,13 +14,13 @@ Chainon* creationChainon(int a){
     return c;
 }
 
-Chainon* insertDebut(Chainon* pliste, int a){
+Chainon* insertDebut(Chainon* pliste, Case a){
     Chainon* c=creationChainon(a);
     (*c).suivant = pliste;
     return c;
 }
 
-Chainon* insertFin(Chainon* pliste, int a){
+Chainon* insertFin(Chainon* pliste, Case a){
     Chainon* c = pliste;
     if (pliste==NULL){
         return creationChainon(a);
@@ -32,7 +32,7 @@ Chainon* insertFin(Chainon* pliste, int a){
     return pliste;
 }
 
-Chainon* ajout_croissant(Chainon* pliste, int a){
+/*Chainon* ajout_croissant(Chainon* pliste, int a){
 	if (pliste==NULL){
 		return creationChainon(a);
 	}
@@ -52,8 +52,28 @@ Chainon* ajout_croissant(Chainon* pliste, int a){
 	nouv_chainon->suivant=c;
 	avant->suivant=nouv_chainon;
 	return pliste;
+}*/
 
-
+Chainon* ajout_croissant_str(Chainon* pliste, Case box, int column){
+	if (pliste==NULL){
+		return creationChainon(box);
+	}
+	Chainon* c = pliste;
+	Chainon* avant;
+	while (c!=NULL && (c->elmt)<=box.tab[column]){
+		if (c->suivant!=NULL){
+			if ((c->suivant->elmt)>=box.tab[column]){
+				avant=c;
+			}
+		}else{
+			avant=c;
+		}
+		c=c->suivant;
+	}
+	Chainon* nouv_chainon = creationChainon(a);
+	nouv_chainon->suivant=c;
+	avant->suivant=nouv_chainon;
+	return pliste;
 }
 
 void freeListe(Chainon* pliste){
