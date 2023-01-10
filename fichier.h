@@ -1,6 +1,7 @@
 typedef struct case {
     char** tab;
-    int moyenne;
+    int somme;
+	int nb_times;
     int minimum;
     int maximum;
 }Case;

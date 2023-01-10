@@ -19,3 +19,11 @@
 ▪ option -A : (A)ntilles. -> 19N-11N et 64W-60W
 ▪ option -O : (O)céan indien. -> 0S-50S et 30E-80E
 ▪ option -Q : antarcti(Q)ue. -> 60S-90S et tout le E et W
+
+parametre en plus pour le programme C:
+-h,n avec n le num de la colonne avec l'altitude
+-m,n avec n le num " "   "        " l'humidité
+-w,i,o,v,c avec i le num de la colonne avec l'identifiant de la station, o pour de la direction du vent, v pour de la vitesse du vent et c pour les coordonnées
+-t1,i,t/p1,i,p avec i le num de la colonne avec l'identifiant de la station, t/p pour la temperature/pression
+-t2,d/p2,d avec d le num de la colonne avec la date
+-t3,d,i/p3,d,i avec d le num de la colonne avec la date et i pour l'identifiant de la station

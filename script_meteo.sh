@@ -88,6 +88,7 @@ else
 		#parametres corrects
 		if (( $lieu_present == 1 )) && (( $date_present == 3 )); then
 			echo "" > data_filtre1.csv
+			#utiliser awk !!!!
 			#echo $(head -n 1 meteo_filtered_data_v1.csv >> data_filtre1.csv)
 			contenu_fichier=`tail -n +2 $nom_fichier`
 			for ligne in $contenu_fichier; do

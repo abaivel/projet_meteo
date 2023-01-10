@@ -10,7 +10,7 @@ int estVideAVL(pArbreAVL a){
 	return 0;
 }
 
-pArbre creerArbreAVL(int r){
+pArbre creerArbreAVL(Case r){
 	pArbre noeud = malloc(sizeof(ArbreAVL));
 	if (noeud==NULL){
 		exit(1);
@@ -22,7 +22,7 @@ pArbre creerArbreAVL(int r){
 	return noeud;
 }
 
-int ajouterFilsGaucheAVL(pArbreAVL a, int e){
+int ajouterFilsGaucheAVL(pArbreAVL a, Case e){
 	//retourne 1 si "a" a déjà un fils gauche, 0 sinon
 	if (estVide(a)==1){
 		a=creerArbre(e);
@@ -35,7 +35,7 @@ int ajouterFilsGaucheAVL(pArbreAVL a, int e){
 	return 0; 
 }
 
-int ajouterFilsDroitAVL(pArbreAVL a, int e){
+int ajouterFilsDroitAVL(pArbreAVL a, Case e){
 	//retourne 1 si "a" a déjà un fils droit, 0 sinon
 	if (estVide(a)==1){
 		a=creerArbre(e);
@@ -135,15 +135,15 @@ pArbre equilibrerAVL(pArbre a){
 	return a;
 }
 
-pArbre insertionAVL(pArbre a, int e, int* h){
+pArbre insertionAVL(pArbre a, Case e, int* h, int column){
 	if (a==NULL){
 		*h=1;
 		return creerArbre(e);
-	}else if (e<a->elmt){
-		a->gauche=insertionAVL(a->gauche,e,h);
+	}else if (strtod(e.tab[column])<a->elmt){
+		a->gauche=insertionAVL(a->gauche,e,h,column);
 		*h=-*h;
-	}else if (e>a->elmt){
-		a->droit=insertionAVL(a->droit,e,h);
+	}else if (strtod(e.tab[column])>a->elmt){
+		a->droit=insertionAVL(a->droit,e,h,column);
 	}else{
 		*h=0;
 		return a;
@@ -178,35 +178,6 @@ pArbre suppMinAVL(pArbre a, int* h, int* pe){
 			*h=-1;
 		}else{
 			*h=0;
-		}
-	}
-	return a;
-}
-
-pArbre suppAVL(pArbre a, int e, int* h){
-	pArbre tmp;
-	if (a==NULL){
-		*h=1;
-		return a;
-	}else if (e>a->elmt){
-		a->droit=suppAVL(a->droit,e,h);
-	}else if (e<a->elmt){
-		a->gauche=suppAVL(a->gauche,e,h);
-		*h=-*h;
-	}else if (existeFilsDroit(a)){
-		a->droit=suppMinAVL(a->droit, h, &(a->elmt));
-	}else{
-		tmp=a;
-		a=a->gauche;
-		free(tmp);
-		*h=-1;
-	}
-	if (*h!=0 && a!=NULL){
-		a->equilibre=a->equilibre+*h;
-		if (a->equilibre==0){
-			*h=0;
-		}else{
-			*h=1;
 		}
 	}
 	return a;

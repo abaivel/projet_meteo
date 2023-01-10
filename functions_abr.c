@@ -10,7 +10,7 @@ int estVide(pArbre a){
 	return 0;
 }
 
-pArbre creerArbre(int r){
+pArbre creerArbre(Case r){
 	pArbre noeud = malloc(sizeof(Arbre));
 	if (noeud==NULL){
 		exit(1);
@@ -21,7 +21,7 @@ pArbre creerArbre(int r){
 	return noeud;
 }
 
-int ajouterFilsGauche(pArbre a, int e){
+int ajouterFilsGauche(pArbre a, Case e){
 	//retourne 1 si "a" a déjà un fils gauche, 0 sinon
 	if (estVide(a)==1){
 		a=creerArbre(e);
@@ -34,7 +34,7 @@ int ajouterFilsGauche(pArbre a, int e){
 	return 0; 
 }
 
-int ajouterFilsDroit(pArbre a, int e){
+int ajouterFilsDroit(pArbre a, Case e){
 	//retourne 1 si "a" a déjà un fils droit, 0 sinon
 	if (estVide(a)==1){
 		a=creerArbre(e);
@@ -47,47 +47,17 @@ int ajouterFilsDroit(pArbre a, int e){
 	return 0; 
 }
 
-pArbre insertABR(pArbre a, int e){
+pArbre insertABR(pArbre a, Case e, int column){
 	if (a==NULL){
 		return creerArbre(e);
-	}else if (e<a->elmt){
+	}else if (strtod(e.tab[column])<a->elmt){
 		a->gauche=insertABR(a->gauche, e);
-	}else if (e>a->elmt){
+	}else if (strtod(e.tab[column])>a->elmt){
 		a->droit=insertABR(a->droit, e);
 	}
 	return a;
 }
 
-pArbre suppMax(pArbre a, int* pe){
-	pArbre tmp;
-	if (existeFilsDroit(a)==1){
-		a->droit=suppMax(a->droit, pe);
-	}else{
-		*pe=a->elmt;
-		tmp=a;
-		a=a->gauche;
-		free(tmp);
-	}
-	return a;
-}
-
-pArbre suppression(pArbre a, int e){
-	pArbre tmp;
-	if (a==NULL){
-		return a;
-	}else if (e>a->elmt){
-		a->droit=suppression(a->droit, e);
-	}else if (e<a->elmt){
-		a->gauche=suppression(a->gauche, e);
-	}else if (existeFilsGauche==0){
-		tmp=a;
-		a=a->droit;
-		free(tmp);
-	}else{
-		a->gauche=suppMax(a->gauche, &(a->elmt));
-	}
-	return a;
-}
 
 void freeArbre(pArbre a){
 	if (a!=NULL){
