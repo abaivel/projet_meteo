@@ -6,10 +6,10 @@
 Case creerCase(char** tab, int column_moy){
 	Case c;
 	c.tab=tab;
-	c.somme=tab[column_moy];
+	c.somme=strtod(tab[column_moy]);
 	c.nb_times=1;
-	c.minimum=tab[column_moy];
-	c.maximum=tab[column_moy];
+	c.minimum=strtod(tab[column_moy]);
+	c.maximum=strtod(tab[column_moy]);
 	return c;
 }
 
@@ -64,7 +64,7 @@ Chainon* insertFin(Chainon* pliste, Case a){
 	return pliste;
 }*/
 
-Chainon* ajout_croissant_int(Chainon* pliste, char** tab, int column_tri, int column_moy, int moyenne, int minimum, int maximum){
+Chainon* ajout_croissant_nb(Chainon* pliste, char** tab, int column_tri, int column_moy, int moyenne, int minimum, int maximum){
 	if (pliste==NULL){
 		return creationChainon(box);
 	}
@@ -82,9 +82,18 @@ Chainon* ajout_croissant_int(Chainon* pliste, char** tab, int column_tri, int co
 	}
 	if (((c->elmt).tab[column_tri])==strtod(tab[column_tri])){
 		if (moyenne==1){
-			
-		}else if (minimum==1){
-		}else if (maximum==1){
+            (c->elmt).somme=(c->elmt).somme+strtod(tab[column_moy]);
+            (c->elmt).nb_times=(c->elmt).nb_times+1;
+		}if (minimum==1){
+            double nb=strtod(tab[column_moy]);
+            if (nb<(c->elmt).minimum){
+                (c->elmt).minimum=nb;
+            }
+		}if (maximum==1){
+            double nb=strtod(tab[column_moy]);
+            if (nb>(c->elmt).maximum){
+                (c->elmt).maximum=nb;
+            }
 		}
 
 	}else{
@@ -93,6 +102,18 @@ Chainon* ajout_croissant_int(Chainon* pliste, char** tab, int column_tri, int co
 		avant->suivant=nouv_chainon;
 	}
 	return pliste;
+}
+
+int write_list_in_file_filled_curve(FILE* file_out, Chainon* pliste){
+    //$num_station $moyenne $min $max
+    int i=0;
+    while (pliste!=NULL){
+        r=fprintf(file_out, "%d %lf %lf %lf", i, (pliste->elmt).somme, (pliste->elmt).minimum, (pliste->elmt).maximum);
+        if (r==EOF){
+            return 1;
+        }
+    }
+    return 0;
 }
 
 void freeListe(Chainon* pliste){

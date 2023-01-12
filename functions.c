@@ -8,7 +8,7 @@
 #define SIZE_MAX_LINE 200
 #define SIZE_MAX_BOX 50
 
-int put_data_list(FILE* file_in, FILE* file_out, int column, int nb_columns){
+int put_data_list(FILE* file_in, FILE* file_out, int column, int nb_columns, int type_graph){
     char* line=NULL;
     Chainon* liste=NULL;
     char** tab=NULL;
@@ -17,6 +17,12 @@ int put_data_list(FILE* file_in, FILE* file_out, int column, int nb_columns){
         tab=lineToTab(line,nb_columns);
         liste=ajout_croissant(liste,)
     }while (line!=NULL);
+    if (type_graph==0){//filled_curve
+        int r=write_list_in_file_filled_curve(file_out,liste);
+        if (r==1){
+            return 1;
+        }
+    }
     fclose(file_in);
     fclose(file_out);
 }

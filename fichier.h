@@ -1,9 +1,9 @@
 typedef struct case {
     char** tab;
-    int somme;
-	int nb_times;
-    int minimum;
-    int maximum;
+    double somme;
+    int nb_times;
+    double minimum;
+    double maximum;
 }Case;
 
 typedef struct arbreAVL{
