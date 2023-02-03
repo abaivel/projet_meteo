@@ -16,6 +16,15 @@ pArbre creerArbre(Case r){
 }
 
 pArbre insertionABR_date(pArbre a, char** tab, int nb_colonnes, int colonne_tri, int colonne_moy, int moyenne){
+    /*  pArbre : l'arbre binaire de recherche
+        tab : le tabelau contenant les éléments de la ligne à placer dans la liste
+        nb_colonnes : le nombre d"élements dans tab
+        colonne_tri : le numéro de la colonne à trier (débute à 0)
+        colonne_moy : le numéro de la colonne avec laquelle la moyenne (et le minimum et maximum si demandé) sera calculé (débute à 0)
+        moyenne : vaut 1 si il y a au moins une moyenne à calculer (avec la colonne n°colonne_moy1 évidemment), 0 sinon
+
+        Retourne le nouvel arbre
+    */
 	if (a==NULL){
 		return creerArbre(creerCase(tab,nb_colonnes,colonne_moy,-1));
 	}else if (strcmp(tab[colonne_tri],(a->elmt).tab[colonne_tri])<0){
@@ -38,6 +47,19 @@ pArbre insertionABR_date(pArbre a, char** tab, int nb_colonnes, int colonne_tri,
 }
 
 pArbre insertionABR(pArbre a, char** tab, int nb_colonnes, int colonne_tri, int colonne_moy1, int colonne_moy2, int moyenne1, int moyenne2, int minimum, int maximum){
+	/*  pArbre : l'arbre binaire de recherche
+        tab : le tabelau contenant les éléments de la ligne à placer dans la liste
+        nb_colonnes : le nombre d"élements dans tab
+        colonne_tri : le numéro de la colonne à trier (débute à 0)
+        colonne_moy1 : le numéro de la colonne avec laquelle la moyenne (et le minimum et maximum si demandé) sera calculé (débute à 0)
+        colonne_moy2 : pareil, elle sert uniquement lorsqu'il y a deux moyennes à calculer (pour le graphique avec les vecteurs)
+        moyenne1 : vaut 1 si il y a au moins une moyenne à calculer (avec la colonne n°colonne_moy1 évidemment), 0 sinon
+        moyenne2 : vaut 1 si il y a une deuxième moyenne à calculer (avec la colonne n°colonne_moy2 évidemment), 0 sinon
+        minimum : vaut 1 si il y a un minimum à calculer (avec la colonne n°colonne_moy1 évidemment), 0 sinon
+        maximum : vaut 1 si il y a un maximum à calculer (avec la colonne n°colonne_moy1 évidemment), 0 sinon
+
+        Retourne le nouvel arbre
+    */
 	if (a==NULL){
 		return creerArbre(creerCase(tab,nb_colonnes,colonne_moy1,colonne_moy2));
 	}else if (strtod(tab[colonne_tri], NULL)<strtod((a->elmt).tab[colonne_tri],NULL)){
@@ -75,6 +97,13 @@ pArbre insertionABR(pArbre a, char** tab, int nb_colonnes, int colonne_tri, int 
 }
 
 pArbre insertionABR3(pArbre a, char** tab, int nb_colonnes, int colonne_tri1, int colonne_tri2, int colonne_tri3){
+    /*  pArbre : l'arbre binaire de recherche
+        tab : le tabelau contenant les éléments de la ligne à placer dans la liste
+        nb_colonnes : le nombre d"élements dans tab
+        colonne_tri1,2 et 3 sont les colonnes par lequel on trie
+
+        Retourne le nouvel arbre
+    */
 	if (a==NULL){
 		return creerArbre(creerCase(tab,nb_colonnes,-1,-1));
 	}else if (strcmp((a->elmt).tab[colonne_tri1],tab[colonne_tri1])>0 ||

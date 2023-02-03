@@ -52,6 +52,13 @@ Chainon* triInsertionMaxDecroissant(Chainon* liste){
 }
 
 Chainon* ajout_croissant3(Chainon* pliste, char** tab, int nb_colonnes, int colonne_tri1, int colonne_tri2, int colonne_tri3){
+    /*  pliste : la liste chainee
+        tab : le tabelau contenant les éléments de la ligne à placer dans la liste
+        nb_colonnes : le nombre d"élements dans tab
+        colonne_tri1,2 et 3 sont les colonnes par lequel on trie
+
+        Retourne la nouvelle liste
+    */
 	if (pliste==NULL){
 		return creationChainon(creerCase(tab,nb_colonnes,-1, -1));
 	}
@@ -84,6 +91,19 @@ Chainon* ajout_croissant3(Chainon* pliste, char** tab, int nb_colonnes, int colo
 }
 
 Chainon* ajout_croissant(Chainon* pliste, char** tab, int nb_colonnes, int colonne_tri, int colonne_moy1, int colonne_moy2, int moyenne1, int moyenne2, int minimum, int maximum){
+	/*  pliste : la liste chainée
+        tab : le tabelau contenant les éléments de la ligne à placer dans la liste
+        nb_colonnes : le nombre d"élements dans tab
+        colonne_tri : le numéro de la colonne à trier (débute à 0)
+        colonne_moy1 : le numéro de la colonne avec laquelle la moyenne (et le minimum et maximum si demandé) sera calculé (débute à 0)
+        colonne_moy2 : pareil, elle sert uniquement lorsqu'il y a deux moyennes à calculer (pour le graphique avec les vecteurs)
+        moyenne1 : vaut 1 si il y a au moins une moyenne à calculer (avec la colonne n°colonne_moy1 évidemment), 0 sinon
+        moyenne2 : vaut 1 si il y a une deuxième moyenne à calculer (avec la colonne n°colonne_moy2 évidemment), 0 sinon
+        minimum : vaut 1 si il y a un minimum à calculer (avec la colonne n°colonne_moy1 évidemment), 0 sinon
+        maximum : vaut 1 si il y a un maximum à calculer (avec la colonne n°colonne_moy1 évidemment), 0 sinon
+
+        Retourne la nouvelle liste
+    */
 	if (pliste==NULL){
 		return creationChainon(creerCase(tab,nb_colonnes,colonne_moy1, colonne_moy2));
 	}
@@ -146,6 +166,19 @@ Chainon* ajout_croissant(Chainon* pliste, char** tab, int nb_colonnes, int colon
 }
 
 Chainon* ajout_decroissant(Chainon* pliste, char** tab, int nb_colonnes, int colonne_tri, int colonne_moy1, int colonne_moy2, int moyenne1, int moyenne2, int minimum, int maximum){
+	/*  pliste : la liste chainée
+        tab : le tabelau contenant les éléments de la ligne à placer dans la liste
+        nb_colonnes : le nombre d"élements dans tab
+        colonne_tri : le numéro de la colonne à trier (débute à 0)
+        colonne_moy1 : le numéro de la colonne avec laquelle la moyenne (et le minimum et maximum si demandé) sera calculé (débute à 0)
+        colonne_moy2 : pareil, elle sert uniquement lorsqu'il y a deux moyennes à calculer (pour le graphique avec les vecteurs)
+        moyenne1 : vaut 1 si il y a au moins une moyenne à calculer (avec la colonne n°colonne_moy1 évidemment), 0 sinon
+        moyenne2 : vaut 1 si il y a une deuxième moyenne à calculer (avec la colonne n°colonne_moy2 évidemment), 0 sinon
+        minimum : vaut 1 si il y a un minimum à calculer (avec la colonne n°colonne_moy1 évidemment), 0 sinon
+        maximum : vaut 1 si il y a un maximum à calculer (avec la colonne n°colonne_moy1 évidemment), 0 sinon
+
+        Retourne la nouvelle liste
+    */
 	if (pliste==NULL){
 		return creationChainon(creerCase(tab,nb_colonnes,colonne_moy1, colonne_moy2));
 	}
@@ -207,6 +240,15 @@ Chainon* ajout_decroissant(Chainon* pliste, char** tab, int nb_colonnes, int col
 }
 
 Chainon* ajout_croissant_date(Chainon* pliste, char** tab, int nb_colonnes, int colonne_tri, int colonne_moy, int moyenne){
+    /*  pliste : la liste chainée
+        tab : le tabelau contenant les éléments de la ligne à placer dans la liste
+        nb_colonnes : le nombre d"élements dans tab
+        colonne_tri : le numéro de la colonne à trier (débute à 0)
+        colonne_moy : le numéro de la colonne avec laquelle la moyenne (et le minimum et maximum si demandé) sera calculé (débute à 0)
+        moyenne : vaut 1 si il y a au moins une moyenne à calculer (avec la colonne n°colonne_moy1 évidemment), 0 sinon
+
+        Retourne la nouvelle liste
+    */
 	if (pliste==NULL){
 		return creationChainon(creerCase(tab,nb_colonnes,colonne_moy,-1));
 	}

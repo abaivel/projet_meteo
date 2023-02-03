@@ -35,7 +35,7 @@ typedef struct chainon {
 
 //fichier fonctions.c
 Case creerCase(char** tab, int nb_colonnes, int colonne_moy1, int colonne_moy2);
-Chainon* entrer_donnees_liste(FILE* fichier_entree, FILE* fichier_sortie, int colonne_tri, int colonne_moy1, int colonne_moy2, int nb_colonnes, int moy1, int moy2, int mini, int maxi, int reverse, int date, int tri_multiple, int colonnes_tri_mutiple[3]);
+Chainon* entrer_donnees_liste(FILE* fichier_entree, FILE* fichier_sortie, int colonne_tri, int colonne_moy1, int colonne_moy2, int nb_colonnes, int moy1, int moy2, int mini, int maxi, int decroissant, int date, int tri_multiple, int colonnes_tri_mutiple[3]);
 Arbre* entrer_donnees_abr(FILE* fichier_entree, FILE* fichier_sortie, int colonne_tri, int colonne_moy1, int colonne_moy2, int nb_colonnes, int moy1, int moy2, int mini, int maxi, int date, int tri_multiple, int colonnes_tri_mutiple[3]);
 ArbreAVL* entrer_donnees_avl(FILE* fichier_entree, FILE* fichier_sortie, int colonne_tri, int colonne_moy1, int colonne_moy2, int nb_colonnes, int moy1, int moy2, int mini, int maxi, int date, int tri_multiple, int colonnes_tri_mutiple[3]);
 char** LigneVersTab(char* ligne, int nb_colonnes);

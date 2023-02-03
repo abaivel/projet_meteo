@@ -18,7 +18,23 @@ Case creerCase(char** tab, int nb_colonnes, int colonne_moy1, int colonne_moy2){
 	return c;
 }
 
-Chainon* entrer_donnees_liste(FILE* fichier_entree, FILE* fichier_sortie, int colonne_tri, int colonne_moy1, int colonne_moy2, int nb_colonnes, int moy1, int moy2, int mini, int maxi, int reverse, int date, int tri_multiple, int colonnes_tri_mutiple[3]){
+Chainon* entrer_donnees_liste(FILE* fichier_entree, FILE* fichier_sortie, int colonne_tri, int colonne_moy1, int colonne_moy2, int nb_colonnes, int moy1, int moy2, int mini, int maxi, int decroissant, int date, int tri_multiple, int colonnes_tri_mutiple[3]){
+    /* Explications des paramètres :
+        fichier_entree : le fichier à lire
+        fichier_sortie : le fichier dans lequel il faut écrire
+        colonne_tri : le numéro de la colonne à trier (débute à 0)
+        colonne_moy1 : le numéro de la colonne avec laquelle la moyenne (et le minimum et maximum si demandé) sera calculé (débute à 0)
+        colonne_moy2 : pareil, elle sert uniquement lorsqu'il y a deux moyennes à calculer (pour le graphique avec les vecteurs), vaut -1 si il y a pas de deuxième moyenne à calculer
+        nb_colonnes : le nombre de colonnes dans le fichier file_in
+        moy1 : vaut 1 si il y a au moins une moyenne à calculer (avec la colonne n°column_moy1 évidemment), 0 sinon
+        moy2 : vaut 1 si il y a une deuxième moyenne à calculer (avec la colonne n°column_moy2 évidemment), 0 sinon
+        mini : vaut 1 si il y a un minimum à calculer (avec la colonne n°column_moy1 évidemment), 0 sinon
+        maxi : vaut 1 si il y a un maximum à calculer (avec la colonne n°column_moy1 évidemment), 0 sinon
+        decroissant : vaut 0 si le tri doit être croissant, 1 sinon
+        date : vaut 1 si la donnée à trier est une date (une date sera prise en compte comme une chaine de caractère par rapport à autre type de données
+
+    La fonction retourne un chiffre signifiant qu'il y a une erreur, pour l'instant retourne 0 si il n'y a pas d''erreur et 1 si il y en a. A voir si il y a besoin de plus de précisions
+    */
     char ligne[TAILLE_MAX_LIGNE];
     Chainon* liste=NULL;
     char** tab=NULL;
@@ -40,7 +56,7 @@ Chainon* entrer_donnees_liste(FILE* fichier_entree, FILE* fichier_sortie, int co
             }
         }while (ligne2!=NULL);
     }else{
-        if (reverse==0){
+        if (decroissant==0){
             do{
                 ligne2=fgets(ligne, TAILLE_MAX_LIGNE-1, fichier_entree);
                 if (strstr(ligne,";;") ==NULL && ligne2!=NULL && ligne[strlen(ligne)-2]!=';'){

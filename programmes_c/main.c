@@ -4,7 +4,7 @@
 #include "fichier.h"
 
 int main(int argc, char **argv){
-	int reversed = 0;
+	int decroissantd = 0;
 	int algo = 0;
 	char *nom_fichier_entre;
 	char *nom_fichier_sortie;
@@ -33,7 +33,7 @@ int main(int argc, char **argv){
 			} else if (!strcmp(argv[i], "--tab")){
 				algo = 2;
 			}else if (!strcmp(argv[i], "-r")){
-				reversed = 1;
+				decroissantd = 1;
 			}/*else if (strstr(argv[i],"-t") !=NULL || strstr(argv[i],"-p") != NULL || !strcmp(argv[i],"-w") || !strcmp(argv[i],"-h") || !strcmp(argv[i],"-m")){
                 strcpy(type_donne,argv[i]);
 			}*/
@@ -146,23 +146,23 @@ int main(int argc, char **argv){
 	}else if (algo==2){
 		Chainon* liste;
 		if (!strcmp(type_donne,"-t1") || !strcmp(type_donne,"-p1")){
-		    liste= entrer_donnees_liste(fichier_entree,fichier_sortie,0,1,-1,2,1,0,1,1,reversed,0,0,NULL);
+		    liste= entrer_donnees_liste(fichier_entree,fichier_sortie,0,1,-1,2,1,0,1,1,decroissantd,0,0,NULL);
 		    nb_colonnes=2;
 		}else if (!strcmp(type_donne,"-t2") || !strcmp(type_donne,"-p2")){
-		    liste= entrer_donnees_liste(fichier_entree,fichier_sortie,0,1,-1,2,1,0,0,0,reversed, 1,0,NULL);
+		    liste= entrer_donnees_liste(fichier_entree,fichier_sortie,0,1,-1,2,1,0,0,0,decroissantd, 1,0,NULL);
 		    nb_colonnes=2;
 		}else if (!strcmp(type_donne,"-t3") || !strcmp(type_donne,"-p3")){
 		    int colonnes_tri[3]={2,0,1};
-		    liste=entrer_donnees_liste(fichier_entree,fichier_sortie,-1,-1,-1,4,0,0,0,0,reversed,0,1,colonnes_tri);
+		    liste=entrer_donnees_liste(fichier_entree,fichier_sortie,-1,-1,-1,4,0,0,0,0,decroissantd,0,1,colonnes_tri);
 		    nb_colonnes=4;
 		}else if (!strcmp(type_donne,"-w")){
-		    liste= entrer_donnees_liste(fichier_entree,fichier_sortie,0,1,2,4,1,1,0,0,reversed,0,0,NULL);
+		    liste= entrer_donnees_liste(fichier_entree,fichier_sortie,0,1,2,4,1,1,0,0,decroissantd,0,0,NULL);
 		    nb_colonnes=4;
 		}else if (!strcmp(type_donne,"-h")){
-		    liste= entrer_donnees_liste(fichier_entree,fichier_sortie,2,2,-1,3,0,0,0,0,reversed,0,0,NULL);
+		    liste= entrer_donnees_liste(fichier_entree,fichier_sortie,2,2,-1,3,0,0,0,0,decroissantd,0,0,NULL);
 		    nb_colonnes=3;
 		}else if (!strcmp(type_donne,"-m")){
-		    liste=entrer_donnees_liste(fichier_entree,fichier_sortie,0,1,-1,4,0,0,0,1,reversed,0,0,NULL);
+		    liste=entrer_donnees_liste(fichier_entree,fichier_sortie,0,1,-1,4,0,0,0,1,decroissantd,0,0,NULL);
 		    liste=triInsertionMaxDecroissant(liste);
 		    nb_colonnes=4;
 		}

@@ -104,6 +104,19 @@ pArbreAVL equilibrerAVL(pArbreAVL a){
 }
 
 pArbreAVL insertionAVL(pArbreAVL a,int* h, char** tab, int nb_colonnes, int colonne_tri, int colonne_moy1, int colonne_moy2, int moyenne1, int moyenne2, int minimum, int maximum){
+	/*  pArbreAVL : l'arbre
+        tab : le tabelau contenant les éléments de la ligne à placer dans la liste
+        nb_colonnes : le nombre d"élements dans tab
+        colonne_tri : le numéro de la colonne à trier (débute à 0)
+        colonne_moy1 : le numéro de la colonne avec laquelle la moyenne (et le minimum et maximum si demandé) sera calculé (débute à 0)
+        colonne_moy2 : pareil, elle sert uniquement lorsqu'il y a deux moyennes à calculer (pour le graphique avec les vecteurs)
+        moyenne1 : vaut 1 si il y a au moins une moyenne à calculer (avec la colonne n°colonne_moy1 évidemment), 0 sinon
+        moyenne2 : vaut 1 si il y a une deuxième moyenne à calculer (avec la colonne n°colonne_moy2 évidemment), 0 sinon
+        minimum : vaut 1 si il y a un minimum à calculer (avec la colonne n°colonne_moy1 évidemment), 0 sinon
+        maximum : vaut 1 si il y a un maximum à calculer (avec la colonne n°colonne_moy1 évidemment), 0 sinon
+
+        Retourne le nouvel arbre
+    */
 	if (a==NULL){
 		*h=1;
 		return creerArbreAVL(creerCase(tab,nb_colonnes,colonne_moy1,colonne_moy2));
@@ -153,6 +166,15 @@ pArbreAVL insertionAVL(pArbreAVL a,int* h, char** tab, int nb_colonnes, int colo
 }
 
 pArbreAVL insertionAVL_date(pArbreAVL a, int* h, char** tab, int nb_colonnes, int colonne_tri, int colonne_moy, int moyenne){
+    /*  pArbreAVL : l'arbre
+        tab : le tabelau contenant les éléments de la ligne à placer dans la liste
+        nb_colonnes : le nombre d"élements dans tab
+        colonne_tri : le numéro de la colonne à trier (débute à 0)
+        colonne_moy : le numéro de la colonne avec laquelle la moyenne (et le minimum et maximum si demandé) sera calculé (débute à 0)
+        moyenne : vaut 1 si il y a au moins une moyenne à calculer (avec la colonne n°colonne_moy1 évidemment), 0 sinon
+
+        Retourne le nouvel arbre
+    */
 	if (a==NULL){
 		*h=1;
 		return creerArbreAVL(creerCase(tab,nb_colonnes,colonne_moy,-1));
@@ -186,6 +208,13 @@ pArbreAVL insertionAVL_date(pArbreAVL a, int* h, char** tab, int nb_colonnes, in
 }
 
 pArbreAVL insertionAVL3(pArbreAVL a, int* h, char** tab, int nb_colonnes, int colonne_tri1, int colonne_tri2, int colonne_tri3){
+    /*  pArbreAVL : l'arbre
+        tab : le tabelau contenant les éléments de la ligne à placer dans la liste
+        nb_colonnes : le nombre d"élements dans tab
+        colonne_tri1,2 et 3 sont les colonnes par lequel on trie
+
+        Retourne le nouvel arbre
+    */
 	if (a==NULL){
 		*h=1;
 		return creerArbreAVL(creerCase(tab,nb_colonnes,-1,-1));
