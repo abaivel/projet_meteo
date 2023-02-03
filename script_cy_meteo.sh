@@ -1,5 +1,4 @@
 #!/bin/bash
-debut=$(date +%s)
 if [ $# -eq 1 ] && [ $1 == "--help" ]; then
 	cat documentation_help
 elif [ $# -lt 2 ]; then
@@ -138,19 +137,14 @@ else
 		erreur=1
 		echo "Date invalide"
 	fi
-	echo "Vérification des paramètres terminée"
 	if (( $erreur == 0 )); then
 		if [ $(ls | grep -x $nom_executable_c | wc -c) -eq 0 ]; then
 			make -s
 			make clean -s
 		fi
 		if [ $(ls | grep -x $nom_executable_c | wc -c) -gt 0 ]; then #compilation réussie
-			echo "avant"
 			contenu_fichier=`tail -n +2 $nom_fichier`
-			date="2012-11-25"
-			echo "avant"
 			echo $contenu_fichier | tr ',:' ';' | tr ' ' '\n' > fichier_modifie.csv
-			echo "apres"
 			nom_fichier="fichier_modifie.csv"
 			if (( $lieu_present == 1 )) && (( $date_present == 3 )); then
 				if [ $lieu = "-F" ]; then
@@ -186,7 +180,6 @@ else
 				awk -v date_min="${date_min}T23" -v date_max="${date_max}T23" 'BEGIN{FS=";"}; {if($2 >= date_min && $2 <= date_max) print $0;}' $nom_fichier > data_filtre1.csv
 				nom_fichier="data_filtre1.csv"
 			fi
-			echo "Vérification date et lieu terminée"
 			for t in $types; do
 				num_colonne="1"
 				arguments_en_plus=$type_tri
@@ -224,10 +217,8 @@ else
 				nom_fichier_res="resultat_$type.csv"
 				nom_fichier_trie="fichier_trie_$type.csv"
 				cut -d ';' -f$num_colonne $nom_fichier > $nom_fichier_res
-				echo "filtrage fini"
 				./$nom_executable_c -f $nom_fichier_res -o $nom_fichier_trie $arguments_en_plus
 				r=0
-				echo "r=$r"
 				if (( $r == 1 )); then
 					echo "Options incorrectes"
 				elif [ $r -eq 2 ]; then
@@ -237,7 +228,6 @@ else
 				elif [ $r -eq 4 ];then
 					echo "Probleme indéfini à l'execution de l'executable $nom_executable_c"
 				elif [ $r -eq 0 ]; then
-					echo "tri fini"
 					if [ $t = "-t1" ] || [ $t = "-p1" ]; then
 						echo "set terminal png size 1500,800 enhanced background rgb 'white'" > gnuplot_script
 						echo "set style line 1 lt 1 lw 1.5 pt 3 linecolor rgb '#00000000'" >> gnuplot_script
@@ -274,8 +264,10 @@ else
 						echo "Création du graphique fini"
 					elif [ $t = "-w" ]; then
 						echo "set terminal png size 1500,800 enhanced background rgb 'white'" > gnuplot_script
-						echo "set xrange[-180:180]" >> gnuplot_script
-						echo "set yrange[-90:90]" >> gnuplot_script
+						if (( $lieu_present == 0 ));then
+							echo "set xrange[-180:180]" >> gnuplot_script
+							echo "set yrange[-90:90]" >> gnuplot_script
+						fi
 						echo "set output 'curve_$type.png'" >> gnuplot_script
 						echo "plot '$nom_fichier_trie' with vectors filled" >> gnuplot_script
 						gnuplot gnuplot_script > fichier_error_gnuplot
@@ -284,8 +276,10 @@ else
 						echo "set pm3d map interpolate 0,0" > gnuplot_script
 						echo "set dgrid3d" >> gnuplot_script
 						echo "set terminal png size 1500,800 enhanced background rgb 'white'" >> gnuplot_script
-						echo "set xrange[-180:180]" >> gnuplot_script
-						echo "set yrange[-90:90]" >> gnuplot_script
+						if (( $lieu_present == 0 ));then
+							echo "set xrange[-180:180]" >> gnuplot_script
+							echo "set yrange[-90:90]" >> gnuplot_script
+						fi
 						echo "set output 'curve_$type.png'" >> gnuplot_script
 						echo "splot \"$nom_fichier_trie\"" >> gnuplot_script
 						gnuplot gnuplot_script > fichier_error_gnuplot
@@ -294,8 +288,10 @@ else
 						echo "set pm3d map interpolate 0,0" > gnuplot_script
 						echo "set dgrid3d" >> gnuplot_script
 						echo "set terminal png size 1500,800 enhanced background rgb 'white'" >> gnuplot_script
-						echo "set xrange[-180:180]" >> gnuplot_script
-						echo "set yrange[-90:90]" >> gnuplot_script
+						if (( $lieu_present == 0 ));then
+							echo "set xrange[-180:180]" >> gnuplot_script
+							echo "set yrange[-90:90]" >> gnuplot_script
+						fi
 						echo "set output 'curve_$type.png'" >> gnuplot_script
 						echo "splot \"$nom_fichier_trie\"" >> gnuplot_script
 						gnuplot gnuplot_script > fichier_error_gnuplot
@@ -316,6 +312,4 @@ rm -f donnees_rangees.txt
 rm -f fichier_modifie.csv
 rm -f gnuplot_script
 rm -f fichier_error_gnuplot
-fin=$(date +%s)
-duree=$(( $fin - $debut ))
-echo $duree
+rm -f nouv_fichier.csv
