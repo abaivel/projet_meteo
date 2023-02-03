@@ -2,7 +2,7 @@
 Bienvenue dans CY METEO, une application qui va traiter un fichier de données météorologiques dans le but d’afficher des graphiques ! <br/>
 Les données traitées seront multiples et au choix de l’utilisateur : précipitations, températures, humidité, vitesse et orientation des vents, etc... Il pourra également choisir le lieu et la période des données à analyser. <br/>
 L'application est un script shell à exécuter avec le format suivant : ./cy_meteo [OPTIONS] ou bash cy_meteo [OPTIONS] <br/>
-Les différentes options sont : <br/>
+Les différentes options sont :
   * L'option pour indiquer le fichier de données : (Option obligatoire) <br/>
       -f <nom_fichier> : permet d'indiquer au script dans quel fichier prendre les données météorologiques, nom_fichier correspond au nom du fichier, dont les données doivent être séparées par un point-virgule ';' <br/>
   * Les options pour choisir le type de données : (Il est obligatoire d'avoir au moins une de ces options) <br/>
