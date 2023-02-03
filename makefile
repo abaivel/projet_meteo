@@ -3,19 +3,19 @@ all: tri_meteo
 main.o: programmes_c/main.c programmes_c/fichier.h
 	gcc -c $< -o $@
 
-functions.o: programmes_c/functions.c programmes_c/fichier.h
+fonctions.o: programmes_c/fonctions.c programmes_c/fichier.h
 	gcc -c $< -o $@
 
-functions_liste.o: programmes_c/functions_liste.c programmes_c/fichier.h
+fonctions_liste.o: programmes_c/fonctions_liste.c programmes_c/fichier.h
 	gcc -c $< -o $@
 
-functions_abr.o: programmes_c/functions_abr.c programmes_c/fichier.h
+fonctions_abr.o: programmes_c/fonctions_abr.c programmes_c/fichier.h
 	gcc -c $< -o $@
 
-functions_avl.o: programmes_c/functions_avl.c programmes_c/fichier.h
+fonctions_avl.o: programmes_c/fonctions_avl.c programmes_c/fichier.h
 	gcc -c $< -o $@
 
-tri_meteo: main.o functions.o functions_liste.o functions_abr.o functions_avl.o
+tri_meteo: main.o fonctions.o fonctions_liste.o fonctions_abr.o fonctions_avl.o
 	gcc $^ -o $@ -lm
 
 clean:
