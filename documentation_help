@@ -1,0 +1,36 @@
+
+Utilisation : ./script_cy_meteo [OPTIONS]...[TYPE_DE_DONNEES] -f [FICHIER]
+Permet de traiter un fichier de données météorologiques dans le but d'afficher des graphiques
+
+FICHIER est une option obligatoire
+	-f <nom_du_fichier> : permet d'indiquer au script dans quel fichier prendre les données météorologiques, nom_du_fichier correspond au nom du fichier, dont les données doivent être séparées par un point-virgule ';' 
+
+TYPE_DE_DONNEES est une option obligatoire à choisir parmi ces possibilités (mais plusieurs TYPE_DE_DONNEES peuvent être mis en arguments) :
+	-t1 : diagramme de type barres d’erreur avec en abscisse l’identifiant de la
+station, et en ordonnée le minimum, maximum et la moyenne des températures.
+	-t2 : diagramme de type ligne simple (courbe) avec en abscisse le jour et l’heure
+des mesures, et en ordonnée la moyenne des mesures de températures.
+	-t3 : diagramme de type multi-lignes avec en abscisse les jours, et en ordonnée les valeurs de températures mesurées. Ce diagramme contiendra 1 ligne par station et par heure avec les courbes correspondant à la même heure dans la même couleur.
+	-p1 : diagramme de type barres d’erreur avec en abscisse l’identifiant de la station, et en ordonnée le minimum, maximum et la moyenne des pression.
+	-p2 : diagramme de type ligne simple (courbe) avec en abscisse le jour et l’heure des mesures, et en ordonnée la moyenne des mesures de pressions.
+	-p3 : diagramme de type multi-lignes avec en abscisse les jours, et en ordonnée les valeurs de pression mesurées. Ce diagramme contiendra 1 ligne par station et par heure avec les courbes correspondant à la même heure dans la même couleur
+	-w : diagramme de type vecteurs (correspondant au vent) avec l’abscisse correspondant à la longitude et l’ordonnée correspondant à la latitude.
+	-h : diagramme de type carte interpolée et colorée montrant l'altitude avec l’abscisse correspondant à la longitude et l’ordonnée correspondant à la latitude.
+	-m : diagramme de type carte interpolée et colorée montrant l'humidité maximale avec l’abscisse correspondant à la longitude et l’ordonnée correspondant à la latitude.
+	
+Options de filtrage (options non-obligatoire)
+	-d <min> <max> : les données de sortie sont dans l’intervalle de dates [<min>..<max>] incluses. Le format des dates est une chaine de type YYYY-MM-DD
+(année-mois-jour).
+	-<lieu> : les données de sortie sont dans la zone choisie, à choisir parmi -F pour la France métropolitaine, -G pour la Guyane française, -S pour Saint-Pierre et Miquelon, -A pour les Antilles, -O pour l'Océan Indien et -Q pour l'Antarticque. Ces options sont exclusives entre elles, une seule est autorisée.
+
+Options de tri : permet de choisir le tri avec lequel les données seront triées, n'est pas une option obligatoire
+	--avl : option par défaut, les données seront triées avec un avl, un arbre binaire de recherche équilibré et le tri sera donc plus rapide
+	--abr : les données seront triées avec un avl, un arbre binaire de recherche
+	--tab : les données seront triées avec une liste chainée et le tri sera plus lent (très déconseillé pour les options t2 et p2 sans option de filtrage)
+	
+Si le script se termine sans erreur, le code retour 0 est renvoyé.
+
+Exemple de commande :
+	./script_cy_meteo.sh -p2 -w -A -f data.csv
+	./script_cy_meteo.sh -A -f data.csv -p2 --avl -w
+
